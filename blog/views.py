@@ -1,9 +1,11 @@
 from django.http import JsonResponse
+from django.shortcuts import render
 from .models import *
 from django.forms.models import model_to_dict
 from django.db.models import Count
 import json
 import math
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 #首页
 pageNumber = 5
@@ -24,7 +26,7 @@ def index(request):
 
     #最新文章
     new = []
-    newsArtical = Artical.objects.order_by('id', '-create_time')[:10].values('id', 'title', 'excerpt', 'create_time', 'category__name', 'img')
+    newsArtical = Artical.objects.order_by('id', '-create_time')[:10].values('id', 'title', 'excerpt', 'create_time', 'category__id','category__name', 'img')
 
     for artical in newsArtical:
         artical['create_time'] = artical['create_time'].strftime('%Y-%m-%d')
@@ -46,21 +48,99 @@ def index(request):
     hotArticals = Artical.objects.order_by('-views')[:10].values('id', 'title')
     hotArtical = [hot for hot in hotArticals]
     context = {
-        'code': 200,
-        'msg': '返回内容',
-        'data': {
-            'category': category,
-            'banner': banner,
-            'recommendArtical': recommend,
-            'newsArtical': new,
-            'links': links,
-            'tags': tags,
-            'hotRecommend': hots,
-            'hotArticals': hotArtical
-        }
+        'category': category,
+        'banner': banner,
+        'recommendArtical': recommend,
+        'newsArtical': new,
+        'links': links,
+        'tags': tags,
+        'hotRecommend': hots,
+        'hotArticals': hotArtical
     }
+    return render(request, 'index .html', context)
 
-    return JsonResponse(context, safe=False)
+#列表页
+def list(request,lid):
+    # 获取当前页
+    page = request.GET.get('page')
+    #获取所有分类
+    category = Category.objects.all()
+    # 获取分类名称
+    cname = Category.objects.get(id=lid)
+    # 热门推荐
+    recommend = Artical.objects.filter(tui__id=2)[:6]
+    # 所有标签
+    tag = Tag.objects.all()
+    # 根据分类id获取列表内容
+    list = Artical.objects.filter(category_id=lid)
+    # 查询数据超过指定的条数分页
+    paginator = Paginator(list, pageNumber)
+    try:
+        list = paginator.page(page)
+    except PageNotAnInteger:
+        list = paginator.page(1)
+    except EmptyPage:
+        list = paginator.page(paginator.num_pages)
+    return render(request, 'list.html', locals())
+# 详情页
+def show(request, aid):
+    # 导航分类
+    category = Category.objects.all()
+    # 获取文章内容
+    artical = Artical.objects.get(id=aid)
+    # 热门推荐
+    recommend = Artical.objects.filter(tui_id=2)[:6]
+    # 标签
+    tag = Tag.objects.all()
+    # 可能感兴趣
+    interest = Artical.objects.all().order_by('?')[:10]
+
+    # 上一篇
+    pre_blog = Artical.objects.filter(create_time__gt=artical.create_time, category_id=artical.category.id).first()
+    # 下一篇
+    next_blog = Artical.objects.filter(create_time__lt=artical.create_time, category=artical.category_id).last()
+
+    artical.views = artical.views + 1
+    artical.save()
+    return render(request, 'show.html', locals())
+# 标签搜索
+def tags(request,tname):
+    # 导航标签
+    category = Category.objects.all()
+    # 热门推荐
+    recommend = Artical.objects.filter(tui_id=2)[:6]
+    # 所有标签
+    tag = Tag.objects.all()
+    # 获取标签内容
+    list = Artical.objects.filter(tag__name=tname)
+    #获取当前页
+    page = request.GET.get('page')
+    paginator = Paginator(list, pageNumber)
+    try:
+        list = paginator.page(page)
+    except PageNotAnInteger:
+        list = paginator.page(1)
+    except EmptyPage:
+        list = paginator.page(paginator.num_pages)
+    return render(request, 'tags.html', locals())
+# 搜索文章
+def search(request):
+    keywords = request.GET.get('search')
+    list = Artical.objects.order_by('-id').filter(title__contains=keywords)
+    recommend = Artical.objects.order_by('-id').filter(tui_id=2)[:6]
+    tag = Tag.objects.all()
+    category = Category.objects.all()
+    page = request.GET.get('page')
+    paginator = Paginator(list, pageNumber)
+    try:
+        list = paginator.page(page)
+    except PageNotAnInteger:
+        list = paginator.page(1)
+    except EmptyPage:
+        list = paginator.page(paginator.num_pages)
+
+    return render(request, 'search.html', locals())
+
 
 # 获取分类文章列表的内容
 def getArticalList(request):
@@ -89,16 +169,11 @@ def getArticalList(request):
     code = 200
     msg = '返回内容'
     context = {
-        'code': code,
-        'msg': msg,
-        'data': {
-            'artical': articals,
-            'total_pages': total_pages
-        }
-
+        'artical': articals,
+        'total_pages': total_pages
     }
 
-    return JsonResponse(context, safe=False)
+    return render(request, 'list.html', locals())
 
 # 获取文章的详情
 def articalDetail(request):

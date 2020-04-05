@@ -13,9 +13,12 @@ class ArticalAdmin(admin.ModelAdmin):
     # 设置哪些字段可以点击编辑界面
     list_display_links = ('id', 'title')
 
+
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
     list_display = ('id', 'text_info', 'img', 'link_url')
+    # 设置哪些字段可以点击编辑界面
+    list_display_links = ('text_info', )
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
