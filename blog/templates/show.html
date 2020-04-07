@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0034)http://demo.django.cn/show-11.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta http-equiv="x-dns-prefetch-control" content="on">
@@ -21,20 +20,20 @@
 <body class="home blog site-layout-2">
 <!-- 头部 -->
 <header class="fix-wrap" id="fix-wrap">
-    <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="http://demo.django.cn/" class="index-logo">
+    <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="{% url 'blog:index' %}" class="index-logo">
         <img src="{% static 'images/black-logo.png' %}" alt="拓普Python学院,Python!"></a>
         <nav class="nav fl">
             <ul id="fix-list" class="fix-list clearfix">
-                <li id="menu-item-24086" class="menu-item"><a href="http://demo.django.cn/">首页</a></li>
+                <li id="menu-item-24086" class="menu-item"><a href="{% url 'blog:index' %}">首页</a></li>
                     {% for category in category %}
                     <li id="menu-item-117720" class="menu-item">
                         <a href="{% url 'blog:index' %}list-{{ category.id }}.html">{{ category.name }}</a></li>
                     {% endfor %}
                 
-                <li id="menu-item-24086" class="menu-item"><a href="http://demo.django.cn/about/">关于博主</a></li>
+                <li id="menu-item-24086" class="menu-item"><a href="{% url 'blog:index' %}about/">关于博主</a></li>
             </ul>
         </nav>
-        <form method="get" class="index-search  hidden-xs" action="http://demo.django.cn/s/">
+        <form method="get" class="index-search  hidden-xs" action="{% url 'blog:index' %}s/">
             <input class="text" name="search" type="text" placeholder="输入关键字" value="">
             <button class="submit" type="submit"><i class="fa fa-search"></i></button>
         </form>
@@ -51,7 +50,7 @@
                 <h1 class="post-title">{{ artical.title }}</h1>
                 <div class="post-con clearfix">
                     <div class="article-meta">
-<span class="item">分类：<a href="http://demo.django.cn/list-2.html" rel="category tag">{{ artical.category.name }}</a></span>
+<span class="item">分类：<a href="{% url 'blog:index' %}list-{{ category.id }}.html" rel="category tag">{{ artical.category.name }}</a></span>
 <span class="item">作者：{{ artical.user }}</span>
 <span class="item">浏览：{{ artical.views }}</span>
 <span class="item">{{ artical.create_time|date:"Y年m月d日 H:i" }}</span>
@@ -65,7 +64,6 @@
     {% for tag in artical.tag.all %}
     <a href="{% url 'blog:index' %}tag/{{ tag.name }}" rel="tag">{{ tag.name }}</a>
     {% endfor %}
-{#    <a href="http://demo.django.cn/tag/Linux%E7%9F%A5%E8%AF%86" rel="tag">{{ tag.name }}</a>#}
 
 </div>
                     <div>
@@ -142,19 +140,19 @@
         
     </div>
 </section>
-{#<!-- /关注我们 -->#}
-{#<div class="post-right-item">#}
-{#    <h4 class="post-right-title">关注我们</h4>#}
-{#    <div class="wid-about">#}
-{#        <p>拓普Python学院，欢迎关注！</p>#}
-{#        <img src="./文章详情页_files/weixinqr.jpg" alt="微信二维码" width="160" height="160">#}
-{#    </div>#}
-{#    <div class="wid-about">#}
-{#        <p><strong>联系方式:</strong></p>#}
-{#        <p>QQ:445813</p>#}
-{#        <p>Email：445813@qq.com</p>#}
-{#    </div>#}
-{#</div>#}
+<!-- /关注我们 -->
+<div class="post-right-item">
+    <h4 class="post-right-title">关注我们</h4>
+    <div class="wid-about">
+        <p>拓普Python学院，欢迎关注！</p>
+        <img src="{% static 'images/weixinqr.jpg' %}" alt="微信二维码" width="160" height="160">
+    </div>
+    <div class="wid-about">
+        <p><strong>联系方式:</strong></p>
+        <p>QQ:445813</p>
+        <p>Email：445813@qq.com</p>
+    </div>
+</div>
 
 
         </aside>

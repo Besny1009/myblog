@@ -140,6 +140,10 @@ def search(request):
         list = paginator.page(paginator.num_pages)
 
     return render(request, 'search.html', locals())
+# 关于我们
+def about(request):
+    category = Category.objects.all()
+    return render(request, 'about.html', locals())
 
 
 # 获取分类文章列表的内容

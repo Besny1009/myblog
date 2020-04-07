@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0033)http://demo.django.cn/list-2.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta http-equiv="x-dns-prefetch-control" content="on">
@@ -22,7 +21,7 @@
 <body class="home blog site-layout-2">
 <!-- 头部 -->
 <header class="fix-wrap" id="fix-wrap">
-    <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="http://demo.django.cn/" class="index-logo">
+    <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="{% url 'blog:index' %}" class="index-logo">
         <img src="{% static 'images/black-logo.png' %}" alt="拓普Python学院,Python!"></a>
         <nav class="nav fl">
             <ul id="fix-list" class="fix-list clearfix">
@@ -33,7 +32,7 @@
                     {% endfor %}
 
 
-                <li id="menu-item-24086" class="menu-item"><a href="http://demo.django.cn/about/">关于博主</a></li>
+                <li id="menu-item-24086" class="menu-item"><a href="{% url 'blog:index' %}about/">关于博主</a></li>
             </ul>
         </nav>
         <form method="get" class="index-search  hidden-xs" action="{% url 'blog:index' %}s/">
@@ -145,18 +144,18 @@
     </div>
 </section>
 <!-- /关注我们 -->
-{#<div class="post-right-item">#}
-{#    <h4 class="post-right-title">关注我们</h4>#}
-{#    <div class="wid-about">#}
-{#        <p>拓普Python学院，欢迎关注！</p>#}
-{#        <img src="./python_files/weixinqr.jpg" alt="微信二维码" width="160" height="160">#}
-{#    </div>#}
-{#    <div class="wid-about">#}
-{#        <p><strong>联系方式:</strong></p>#}
-{#        <p>QQ:445813</p>#}
-{#        <p>Email：445813@qq.com</p>#}
-{#    </div>#}
-{#</div>#}
+<div class="post-right-item">
+    <h4 class="post-right-title">关注我们</h4>
+    <div class="wid-about">
+        <p>拓普Python学院，欢迎关注！</p>
+        <img src="{% static 'images/weixinqr.jpg' %}" alt="微信二维码" width="160" height="160">
+    </div>
+    <div class="wid-about">
+        <p><strong>联系方式:</strong></p>
+        <p>QQ:445813</p>
+        <p>Email：445813@qq.com</p>
+    </div>
+</div>
 
 
         </aside>

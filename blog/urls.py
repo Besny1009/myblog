@@ -14,4 +14,5 @@ urlpatterns = [
     path('show-<int:aid>.html', views.show, name='show'),
     path('tag/<str:tname>', views.tags, name='tags'),
     path('s/', views.search, name='search'),
+    path('about/', views.about, name='about'),
 ]
